@@ -1,8 +1,9 @@
 import numpy as np
 
 def getBondPrice(y, face, couponRate, m, ppy=1):
-    if ppy == 1:
-        x = 2170604
-    if ppy == 2:
-        x = 2171686
-    return(x)
+    t = np.arange(1, (ppy*m)+1)
+    pv = (1 + y/ppy)**(-t)
+    pvcf = couponRate * face / ppy
+    pvcfsum = pvcf * pv.sum()
+    bondprice = pvcfsum + face * pv[-1]
+    return(bondprice)
