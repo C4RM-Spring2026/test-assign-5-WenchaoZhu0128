@@ -9,4 +9,4 @@ def getBondDuration(y, face, couponRate, m, ppy = 1):
     dpvcfsum = (t * pvcf).sum()
     bondprice = pvcfsum + pv[-1] * face
     dbondprice = dpvcfsum + m*ppy * pv[-1] * face
-    return((bondprice / dbondprice) / ppy)
+    return ((dbondprice / bondprice) / ppy)
