@@ -1,8 +1,12 @@
 import numpy as np
 
 def getBondDuration(y, face, couponRate, m, ppy = 1):
-    if ppy == 1:
-        x = 8.51
-    if ppy == 2:
-        x = 8.42
-    return(x)
+    t = np.arrange(1, (m*ppy)+1)
+    pv = (1 + y/ppy)**(-t)
+    cf = couponRate * face / ppy
+    pvcf = pv * cf
+    pvcfsum = pvcf.sum()
+    dpvcfsum = (t * pvcf).sum()
+    bondprice = pvcfsum + pv[-1] * face
+    dbondprice = dpvcfsum + m*ppy * pv[-1] * face
+    return((bondprice / dbondprice) / ppy)
